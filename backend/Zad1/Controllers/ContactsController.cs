@@ -48,7 +48,7 @@ namespace Zad1.Controllers
         }
         
         [HttpDelete]
-        public async Task<IActionResult> DeleteContact([FromBody] String email)
+        public async Task<IActionResult> DeleteContact([FromQuery] string email)
         {
             var contact = _contactRepository.GetUserByEmail(email);
             
