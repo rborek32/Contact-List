@@ -14,7 +14,7 @@
   overflow-y: auto;
 }
 
-.login-panel {
+.login-and-actions{
   background-color: #e9ecef;
 }
 
@@ -73,6 +73,16 @@
 
 .input-group button{
   justify-content: center;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.input-wrapper label {
+  margin-bottom: 5px;
 }
 
 .button-group {

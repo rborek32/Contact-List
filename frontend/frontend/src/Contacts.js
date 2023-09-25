@@ -14,12 +14,16 @@ function Contacts() {
 
   return (
     <div className="container">
-      <LoginPanel setLoggedIn={setLoggedIn} />
+      <div className="login-and-actions">
+        <LoginPanel setLoggedIn={setLoggedIn} />
+        {loggedIn && <ContactEditPanel />}
+      </div>
       <ContactsList
         contacts={contacts}
         loggedIn={loggedIn}
         expandedContactId={expandedContactId}
         setExpandedContactId={setExpandedContactId}
+        setContacts={setContacts}
       />
     </div>
   );
@@ -86,47 +90,106 @@ function LoginPanel({ setLoggedIn }) {
   );
 }
 
-function ContactsList({ contacts, loggedIn, expandedContactId, setExpandedContactId }) {
-    return (
-      <div className="contacts-list">
-        <h2>Contacts</h2>
-        <ul>
-          {contacts.map((contact) => (
-            <li key={contact.id} className="contact-item">
-              <div className="contact-header"> {/* <-- Add this wrapping div */}
-                <span>{contact.firstName} {contact.lastName}</span>
-                {loggedIn && (
-                  <button onClick={() =>
-                      setExpandedContactId(
-                        expandedContactId === contact.id ? null : contact.id
-                      )
-                    }
-                  >
-                    {expandedContactId === contact.id
-                      ? "Hide Details"
-                      : "Show Details"}
-                  </button>
-                )}
-              </div> {/* <-- Close wrapping div */}
-              
-              {expandedContactId === contact.id && loggedIn && (
-                <div className="contact-details">
-                  <p>First name: {contact.firstName}</p>
-                  <p>Last Name: {contact.lastName}</p>
-                  <p>Email: {contact.email}</p>
-                  <p>Category: {contact.category}</p>
-                  <p>Phone Number: {contact.phoneNumber}</p>
-                  <p>Date of birth: {contact.dateOfBirth}</p>
-                  <button> Update Contact </button>
-                  <button> Delete Contact </button>
-                </div>
+function ContactsList({
+  contacts,
+  loggedIn,
+  expandedContactId,
+  setExpandedContactId,
+  setContacts,
+}) {
+  const handleDelete = async (email) => {
+    if (window.confirm("Are you sure you want to delete this contact?")) {
+      try {
+        await axios.delete(`http://localhost:9000/api/contacts?email=${email}`);
+        setContacts((prevContacts) =>
+          prevContacts.filter((contact) => contact.email !== email)
+        );
+      } catch (error) {
+        console.error("Error deleting the contact:", error);
+      }
+    }
+  };
+
+  return (
+    <div className="contacts-list">
+      <h2>Contacts</h2>
+      <ul>
+        {contacts.map((contact) => (
+          <li key={contact.id} className="contact-item">
+            <div className="contact-header">
+              {" "}
+              {}
+              <span>
+                {contact.firstName} {contact.lastName}
+              </span>
+              {loggedIn && (
+                <button
+                  onClick={() =>
+                    setExpandedContactId(
+                      expandedContactId === contact.id ? null : contact.id
+                    )
+                  }
+                >
+                  {expandedContactId === contact.id
+                    ? "Hide Details"
+                    : "Show Details"}
+                </button>
               )}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
+            </div>{" "}
+            {}
+            {expandedContactId === contact.id && loggedIn && (
+              <div className="contact-details">
+                <p>First name: {contact.firstName}</p>
+                <p>Last Name: {contact.lastName}</p>
+                <p>Email: {contact.email}</p>
+                <p>Category: {contact.category}</p>
+                <p>Phone Number: {contact.phoneNumber}</p>
+                <p>Date of birth: {contact.dateOfBirth}</p>
+                {/* <button onClick={() => handleUpdate(contact)}> Update Contact </button>  */}
+                <button onClick={() => handleDelete(contact.email)}>
+                  {" "}
+                  Delete Contact{" "}
+                </button>
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
+function ContactEditPanel() {
+  return (
+    <div className="login-panel">
+      <h2>Update Contact</h2>
+      <div className="input-wrapper">
+          <label>First Name</label>
+          <input type="text" />
+
+          <label>Last Name</label>
+          <input type="text" />
+
+          <label>Email</label>
+          <input type="text" />
+
+          <label>Category</label>
+          <input type="tekst"></input>
+
+          <label>SubCategory</label>
+          <input type="tekst"></input>
+
+          <label>Phone Number</label>
+          <input type="tekst"></input>
+
+          <label>Date of birth</label>
+          <input type="tekst"></input>
+      </div>
+      <div className="button-group">
+          <button type="submit">Update Contact</button>
+        </div>
+    </div>
+  );
+}
 
 export default Contacts;

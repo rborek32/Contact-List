@@ -59,14 +59,22 @@ namespace Zad1.Controllers
         [HttpPost("login")]
         public IActionResult Login(LoginRequest request)
         {
-            var user = _contactRepository.GetUserByEmail(request.Email);
-            
-            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
-            {
-                return Unauthorized();
-            }
 
-            return Ok(new { message = "Logged in successfully" });
+            try
+            {
+                var user = _contactRepository.GetUserByEmail(request.Email);
+                if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
+                {
+                    return Unauthorized();
+                }
+
+                return Ok(new { message = "Logged in successfully" });
+            }
+            catch (Exception exception)
+            {
+                return BadRequest($"Login: {request.Email}, Password {request.Password}" +
+                                  $"Error: {exception.Message}");
+            }
         }
     }
 }
