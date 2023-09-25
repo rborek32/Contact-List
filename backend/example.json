@@ -1,0 +1,31 @@
+[
+    {
+        "FirstName": "Jan",
+        "LastName": "Kowalski",
+        "Email": "jan.kowalski@example.com",
+        "Password": "samplePassword1!",
+        "Category": "służbowy",
+        "SubCategory": "szef",
+        "PhoneNumber": "123-456-789",
+        "DateOfBirth": "1985-03-20"
+    },
+    {
+        "FirstName": "Anna",
+        "LastName": "Nowak",
+        "Email": "anna.nowak@example.com",
+        "Password": "samplePassword2!",
+        "Category": "prywatny",
+        "PhoneNumber": "987-654-321",
+        "DateOfBirth": "1990-07-15"
+    },
+    {
+        "FirstName": "Michał",
+        "LastName": "Wiśniewski",
+        "Email": "michal.wisniewski@example.com",
+        "Password": "samplePassword3!",
+        "Category": "inny",
+        "SubCategory": "znajomy",
+        "PhoneNumber": "456-789-012",
+        "DateOfBirth": "1980-12-10"
+    }
+]
