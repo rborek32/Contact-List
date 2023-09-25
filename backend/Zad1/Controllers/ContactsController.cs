@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Zad1.Models;
 using Zad1.Repositories;
 
 namespace Zad1.Controllers
@@ -16,10 +17,40 @@ namespace Zad1.Controllers
         }
         
         [HttpGet]
-        public IActionResult GetAllMovies()
+        public IActionResult GetAllContacts()
         {
             var contacts = _contactRepository.GetAllContacts();
             return Ok(contacts);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> AddOrUpdateContact([FromBody] Contact contact)
+        {
+            //Added hashing passwords for security reasons 
+            contact.Password = BCrypt.Net.BCrypt.HashPassword(contact.Password);
+            
+            try
+            {
+                await _contactRepository.AddContact<Contact>(contact);
+                return Ok("Added successfully.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Failed to insert movie. Error: {ex.Message}");
+            }
+        }
+        
+        [HttpPost("login")]
+        public IActionResult Login(LoginRequest request)
+        {
+            var user = _contactRepository.GetUserByEmail(request.Email);
+            
+            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
+            {
+                return Unauthorized();
+            }
+
+            return Ok(new { message = "Logged in successfully" });
         }
     }
 }

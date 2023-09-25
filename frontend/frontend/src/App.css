@@ -1,32 +1,3 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
 
 .container {
   display: flex;
@@ -34,11 +5,13 @@
 }
 
 .login-panel, .contacts-list {
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  /* justify-content: center; */
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  justify-content: center;
-  align-items: center;
 }
 
 .login-panel {
@@ -47,4 +20,63 @@
 
 .contacts-list {
   background-color: #f8f9fa;
+}
+
+.contacts-list ul {
+  list-style-type: none;
+  padding: 0;
+  display: table-row;
+  flex: 1;
+}
+
+.contacts-list li {
+  margin: 5px 0;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.contact-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.contact-item span {
+  flex-grow: 1;
+  margin: 10px;
+}
+
+.contact-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contact-details {
+  margin-top: 5px;  
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; 
+  max-width: 400px; 
+  margin-bottom: 10px;
+}
+
+.input-group label {
+  margin-right: 10px; 
+}
+
+.input-group button{
+  justify-content: center;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center; 
+  width: 100%; 
 }

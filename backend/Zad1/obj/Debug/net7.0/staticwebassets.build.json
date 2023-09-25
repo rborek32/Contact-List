@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "AUvAae+Ny7Rzcnud9XPx+ObQlLu0XKQrATOsW+KDtE0=",
+  "Hash": "I3wCX2WXSKzhiiILYTgohJos0FI0/hGmsC6EoOCPnZ8=",
   "Source": "Zad1",
   "BasePath": "_content/Zad1",
   "Mode": "Default",
@@ -16,40 +16,6 @@
     }
   ],
   "Assets": [
-    {
-      "Identity": "F:\\Programowanie\\NetPc\\Zad1\\backend\\Zad1\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Zad1.styles.css",
-      "SourceId": "Zad1",
-      "SourceType": "Computed",
-      "ContentRoot": "F:\\Programowanie\\NetPc\\Zad1\\backend\\Zad1\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
-      "BasePath": "_content/Zad1",
-      "RelativePath": "Zad1.styles.css",
-      "AssetKind": "All",
-      "AssetMode": "CurrentProject",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "ScopedCss",
-      "AssetTraitValue": "ApplicationBundle",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "F:\\Programowanie\\NetPc\\Zad1\\backend\\Zad1\\obj\\Debug\\net7.0\\scopedcss\\bundle\\Zad1.styles.css"
-    },
-    {
-      "Identity": "F:\\Programowanie\\NetPc\\Zad1\\backend\\Zad1\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Zad1.bundle.scp.css",
-      "SourceId": "Zad1",
-      "SourceType": "Computed",
-      "ContentRoot": "F:\\Programowanie\\NetPc\\Zad1\\backend\\Zad1\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
-      "BasePath": "_content/Zad1",
-      "RelativePath": "Zad1.bundle.scp.css",
-      "AssetKind": "All",
-      "AssetMode": "Reference",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "ScopedCss",
-      "AssetTraitValue": "ProjectBundle",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "F:\\Programowanie\\NetPc\\Zad1\\backend\\Zad1\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Zad1.bundle.scp.css"
-    },
     {
       "Identity": "F:\\Programowanie\\NetPc\\Zad1\\backend\\Zad1\\wwwroot\\css\\site.css",
       "SourceId": "Zad1",

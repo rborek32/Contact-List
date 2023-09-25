@@ -1,10 +1,6 @@
 {
   "Files": [
     {
-      "Id": "F:\\Programowanie\\NetPc\\Zad1\\backend\\Zad1\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Zad1.bundle.scp.css",
-      "PackagePath": "staticwebassets\\Zad1.bundle.scp.css"
-    },
-    {
       "Id": "F:\\Programowanie\\NetPc\\Zad1\\backend\\Zad1\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

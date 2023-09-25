@@ -19,5 +19,15 @@ namespace Zad1.Repositories
         {
             return _collection.Find(new BsonDocument()).ToList();
         }
+        
+        public Contact GetUserByEmail(string login)
+        {
+            return _collection.Find(user => user.Email == login).FirstOrDefault();
+        }
+
+        public async Task AddContact<T>(Contact contact)
+        { 
+            await _collection.InsertOneAsync(contact);
+        }
     }
 }
