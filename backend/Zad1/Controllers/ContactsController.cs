@@ -24,7 +24,7 @@ namespace Zad1.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> AddOrUpdateContact([FromBody] Contact contact)
+        public async Task<IActionResult> AddContact([FromBody] Contact contact)
         {
             //Added hashing passwords for security reasons 
             contact.Password = BCrypt.Net.BCrypt.HashPassword(contact.Password);
@@ -38,6 +38,22 @@ namespace Zad1.Controllers
             {
                 return BadRequest($"Failed to insert movie. Error: {ex.Message}");
             }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateContact([FromBody] Contact contact)
+        {
+            await _contactRepository.UpdateContact<Contact>(contact);
+            return Ok("Updated Successfully");
+        }
+        
+        [HttpDelete]
+        public async Task<IActionResult> DeleteContact([FromBody] String email)
+        {
+            var contact = _contactRepository.GetUserByEmail(email);
+            
+            await _contactRepository.DeleteContact<Contact>(contact);
+            return Ok("Deleted Successfully");
         }
         
         [HttpPost("login")]

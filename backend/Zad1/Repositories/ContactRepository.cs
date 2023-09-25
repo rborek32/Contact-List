@@ -1,4 +1,6 @@
+using System.Runtime.Intrinsics.X86;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using Zad1.Models;
 
@@ -28,6 +30,18 @@ namespace Zad1.Repositories
         public async Task AddContact<T>(Contact contact)
         { 
             await _collection.InsertOneAsync(contact);
+        }
+
+        public async Task UpdateContact<T>(Contact contact)
+        {
+            var filter = Builders<Contact>.Filter.Eq(x => x.Id, contact.Id);
+            await _collection.DeleteOneAsync(filter);
+        }
+        
+        public async Task DeleteContact<T>(Contact contact)
+        {
+            var filter = Builders<Contact>.Filter.Eq(x => x.Id, contact.Id);
+            await _collection.DeleteOneAsync(filter);
         }
     }
 }
