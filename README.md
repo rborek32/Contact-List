@@ -34,4 +34,4 @@ POST /api/contacts/login - checks if there is a contact with provided credential
   "password": "string"
 }
 
-To start the frontend use "npm run" and run backend with http Launch
+To start the frontend download modules "npm i" and start using "npm run". Run backend with http Launch
