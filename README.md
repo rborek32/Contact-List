@@ -3,8 +3,9 @@
 View for not signed in user
 ![image](https://github.com/rborek32/NetPC/assets/92055063/31606066-d873-4ba6-b08b-b7eab615497a)
 
-It is possible to login as admin or a person from contact list.
-When signed in it is possible to expand contacts. Additionally Edit panel shows up.
+You can login as admin or a person from contact list.
+
+When signed in it is possible to expand contacts and Edit panel shows up.
 At the page load there's a request to backend for the list of records.
 Passwords are stored hashed in mongoDB.
 ![image](https://github.com/rborek32/NetPC/assets/92055063/c279d1e2-311d-43fb-bc23-98ee7ff18544)
@@ -14,6 +15,7 @@ When clicked Move details then they appear in the inputs of edit panel.
 
 If we would like to add contact with the same email as already existing then the backend reponds with message: "Email address already exists." as it is visible above.
 
+It is also not possible to change user email to already existing one.
 
 Backend endpoints: (http://localhost:9000/swagger/index.html)
 ![image](https://github.com/rborek32/NetPC/assets/92055063/45aaff65-94fd-4f58-b74e-efd966534dee)
