@@ -187,6 +187,29 @@ function ContactEditPanel({ selectedContact }) {
     }
   }, [selectedContact]);
 
+  const addContact = async () => {
+    try {
+      const response = await axios.post('/api/contacts', {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: selectedContact.password,
+        category: category,
+        subCategory: selectedContact.subCategory,
+        phoneNumber: phoneNumber,
+        dateOfBirth: new Date(dateOfBirth).toISOString()
+      });
+
+      if (response.status === 200) {
+        console.log("Contact added successfully!");
+      } else {
+        console.error("Error adding the contact:", response);
+      }
+    } catch (error) {
+      console.error("Error adding the contact:", error);
+    }
+  };
+  
   const updateContact = async () => {
     try {
       const response = await axios.put('/api/contacts', {
@@ -234,6 +257,10 @@ function ContactEditPanel({ selectedContact }) {
         <input type="date" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
 
       </div>
+      <div className="button-group">
+        <button onClick={addContact}>Add Contact</button>
+      </div>
+
       <div className="button-group">
         <button onClick={updateContact}>Update Contact</button>
       </div>
