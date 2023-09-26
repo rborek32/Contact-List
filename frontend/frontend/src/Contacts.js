@@ -5,6 +5,7 @@ function Contacts() {
   const [contacts, setContacts] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [expandedContactId, setExpandedContactId] = useState(null);
+  const [selectedContact, setSelectedContact] = useState(null);
 
   useEffect(() => {
     fetch("/api/contacts")
@@ -16,7 +17,7 @@ function Contacts() {
     <div className="container">
       <div className="login-and-actions">
         <LoginPanel setLoggedIn={setLoggedIn} />
-        {loggedIn && <ContactEditPanel />}
+        {loggedIn && <ContactEditPanel selectedContact={selectedContact} />}
       </div>
       <ContactsList
         contacts={contacts}
@@ -24,6 +25,7 @@ function Contacts() {
         expandedContactId={expandedContactId}
         setExpandedContactId={setExpandedContactId}
         setContacts={setContacts}
+        setSelectedContact={setSelectedContact}
       />
     </div>
   );
@@ -39,7 +41,7 @@ function LoginPanel({ setLoggedIn }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:9000/api/contacts/login",
+        "/api/contacts/login",
         {
           Email: email,
           Password: password,
@@ -96,11 +98,17 @@ function ContactsList({
   expandedContactId,
   setExpandedContactId,
   setContacts,
+  setSelectedContact
 }) {
+
+  const moveInfo = (contact) => {
+    setSelectedContact(contact);
+  };
+
   const handleDelete = async (email) => {
     if (window.confirm("Are you sure you want to delete this contact?")) {
       try {
-        await axios.delete(`http://localhost:9000/api/contacts?email=${email}`);
+        await axios.delete(`/api/contacts?email=${email}`);
         setContacts((prevContacts) =>
           prevContacts.filter((contact) => contact.email !== email)
         );
@@ -118,7 +126,7 @@ function ContactsList({
           <li key={contact.id} className="contact-item">
             <div className="contact-header">
               {" "}
-              {}
+              { }
               <span>
                 {contact.firstName} {contact.lastName}
               </span>
@@ -136,7 +144,7 @@ function ContactsList({
                 </button>
               )}
             </div>{" "}
-            {}
+            { }
             {expandedContactId === contact.id && loggedIn && (
               <div className="contact-details">
                 <p>First name: {contact.firstName}</p>
@@ -145,7 +153,7 @@ function ContactsList({
                 <p>Category: {contact.category}</p>
                 <p>Phone Number: {contact.phoneNumber}</p>
                 <p>Date of birth: {contact.dateOfBirth}</p>
-                {/* <button onClick={() => handleUpdate(contact)}> Update Contact </button>  */}
+                <button onClick={() => moveInfo(contact)}> Move details </button>
                 <button onClick={() => handleDelete(contact.email)}>
                   {" "}
                   Delete Contact{" "}
@@ -159,37 +167,68 @@ function ContactsList({
   );
 }
 
-function ContactEditPanel() {
+function ContactEditPanel({ selectedContact }) {
+
+  const [firstName, setFirstName] = useState(selectedContact ? selectedContact.firstName : "");
+  const [lastName, setLastName] = useState(selectedContact ? selectedContact.lastName : "");
+  const [email, setEmail] = useState(selectedContact ? selectedContact.email : "");
+  const [category, setCategory] = useState(selectedContact ? selectedContact.category : "");
+  const [phoneNumber, setPhoneNumber] = useState(selectedContact ? selectedContact.phoneNumber : "");
+  const [dateOfBirth, setDateOfBirth] = useState(selectedContact ? selectedContact.dateOfBirth : "");
+
+  useEffect(() => {
+    if (selectedContact) {
+      setFirstName(selectedContact.firstName);
+      setLastName(selectedContact.lastName);
+      setEmail(selectedContact.email);
+      setCategory(selectedContact.category);
+      setPhoneNumber(selectedContact.phoneNumber);
+      setDateOfBirth(formatDate(selectedContact.dateOfBirth));
+    }
+  }, [selectedContact]);
+
   return (
     <div className="login-panel">
       <h2>Update Contact</h2>
       <div className="input-wrapper">
-          <label>First Name</label>
-          <input type="text" />
+        <label>First Name</label>
+        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
 
-          <label>Last Name</label>
-          <input type="text" />
+        <label>Last Name</label>
+        <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
 
-          <label>Email</label>
-          <input type="text" />
+        <label>Email</label>
+        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
 
-          <label>Category</label>
-          <input type="tekst"></input>
+        <label>Category</label>
+        <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} />
 
-          <label>SubCategory</label>
-          <input type="tekst"></input>
+        <label>Phone Number</label>
+        <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
 
-          <label>Phone Number</label>
-          <input type="tekst"></input>
+        <label>Date of birth</label>
+        <input type="date" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
 
-          <label>Date of birth</label>
-          <input type="tekst"></input>
       </div>
       <div className="button-group">
-          <button type="submit">Update Contact</button>
-        </div>
+        <button type="submit">Update Contact</button>
+      </div>
     </div>
   );
+}
+
+function formatDate(isoString) {
+  const date = new Date(isoString);
+  let month = '' + (date.getMonth() + 1);
+  let day = '' + date.getDate();
+  const year = date.getFullYear();
+
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [year, month, day].join('-');
 }
 
 export default Contacts;
