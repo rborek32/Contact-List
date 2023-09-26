@@ -187,6 +187,30 @@ function ContactEditPanel({ selectedContact }) {
     }
   }, [selectedContact]);
 
+  const updateContact = async () => {
+    try {
+      const response = await axios.put('/api/contacts', {
+        id: selectedContact.id,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: selectedContact.password,
+        category: category,
+        subCategory: selectedContact.subCategory,
+        phoneNumber: phoneNumber,
+        dateOfBirth: new Date(dateOfBirth).toISOString()
+      });
+
+      if (response.status === 200) {
+        console.log("Contact updated successfully!");
+      } else {
+        console.error("Error updating the contact:", response);
+      }
+    } catch (error) {
+      console.error("Error updating the contact:", error);
+    }
+  };
+
   return (
     <div className="login-panel">
       <h2>Update Contact</h2>
@@ -211,7 +235,7 @@ function ContactEditPanel({ selectedContact }) {
 
       </div>
       <div className="button-group">
-        <button type="submit">Update Contact</button>
+        <button onClick={updateContact}>Update Contact</button>
       </div>
     </div>
   );
@@ -223,10 +247,10 @@ function formatDate(isoString) {
   let day = '' + date.getDate();
   const year = date.getFullYear();
 
-  if (month.length < 2) 
-      month = '0' + month;
-  if (day.length < 2) 
-      day = '0' + day;
+  if (month.length < 2)
+    month = '0' + month;
+  if (day.length < 2)
+    day = '0' + day;
 
   return [year, month, day].join('-');
 }
