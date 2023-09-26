@@ -10,6 +10,8 @@ namespace Zad1.Controllers
     {
         private readonly ContactRepository _contactRepository;
 
+        // Initializing MongoDB connection where the database is named "NetPC" 
+        // and the collection has name "Zad1"
         public ContactsController(IConfiguration configuration)
         {
             string connectionString = configuration.GetConnectionString("MongoDB");
@@ -26,6 +28,13 @@ namespace Zad1.Controllers
         [HttpPost]
         public async Task<IActionResult> AddContact([FromBody] Contact contact)
         {
+            // Check if email already exists
+            var existingContact = _contactRepository.GetUserByEmail(contact.Email);
+            if(existingContact != null)
+            {
+                return BadRequest("Email address already exists.");
+            }
+            
             //Added hashing passwords for security reasons 
             contact.Password = BCrypt.Net.BCrypt.HashPassword(contact.Password);
             
@@ -36,13 +45,22 @@ namespace Zad1.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Failed to insert movie. Error: {ex.Message}");
+                return BadRequest($"Failed to insert contact. Error: {ex.Message}");
             }
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateContact([FromBody] Contact contact)
         {
+            var existingContact = _contactRepository.GetUserByEmail(contact.Email);
+            // Check if email already exists:
+            // 1) We want to check if there is already a record with given email
+            // 2) Then we also want to check if the existing email is assigned to current contact by checking their ids
+            if(existingContact != null && existingContact.Id != contact.Id)
+            {
+                return BadRequest("Email address already exists.");
+            }
+            
             await _contactRepository.UpdateContact<Contact>(contact);
             return Ok("Updated Successfully");
         }
@@ -63,6 +81,13 @@ namespace Zad1.Controllers
             try
             {
                 var user = _contactRepository.GetUserByEmail(request.Email);
+
+                // Admin feature to allow browsing all functionalities even when contact list is null
+                if (request is {Email: "admin", Password: "admin"})
+                {
+                    return Ok(new { message = "Logged as admin" });
+                }
+                
                 if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
                 {
                     return Unauthorized();
@@ -72,8 +97,7 @@ namespace Zad1.Controllers
             }
             catch (Exception exception)
             {
-                return BadRequest($"Login: {request.Email}, Password {request.Password}" +
-                                  $"Error: {exception.Message}");
+                return BadRequest($"Error: {exception.Message}");
             }
         }
     }
