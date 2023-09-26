@@ -60,6 +60,12 @@ namespace Zad1.Controllers
             {
                 return BadRequest("Email address already exists.");
             }
+
+            // If password is changed then it needs to be hashed
+            if (existingContact.Password != contact.Password)
+            {
+                contact.Password = BCrypt.Net.BCrypt.HashPassword(contact.Password);
+            }
             
             await _contactRepository.UpdateContact<Contact>(contact);
             return Ok("Updated Successfully");
