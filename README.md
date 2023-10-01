@@ -37,7 +37,7 @@ POST /api/contacts/login - checks if there is a contact with provided credential
   "password": "string"
 }
 
-Starting application: 
+# Starting application: 
 
 Frontend: 
 1) Download packages using "npm i"
@@ -47,7 +47,7 @@ Backend:
 
 Run using http launch
 
-Build description:
+# Build description:
 Backend - divided into Model, Repository, and Controller.
 1) Model - contains data about the DB record
 2) Repository - layer responsible for interaction with models and performing DB operations
