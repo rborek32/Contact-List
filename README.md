@@ -57,3 +57,4 @@ Frontend - divided into 4 components:
 1) Contacts.js - Common container for all used components 
 2) LoginPanel.js - Login handling
 3) ContactList.js - Displays contacts, contains logic used to set contact data into the edit panel, and allows delete operation
+4) ContactEditPanel.js - Enables adding and updating contacts using inputs
