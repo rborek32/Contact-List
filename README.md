@@ -1,5 +1,7 @@
 # Web application supporting the contact list.
 
+Stack: React + .Net Core
+
 View for not signed in user
 ![image](https://github.com/rborek32/NetPC/assets/92055063/31606066-d873-4ba6-b08b-b7eab615497a)
 
@@ -29,9 +31,18 @@ PUT /api/contacts - updates existing contact
 DELETE /api/contacts - deletes contact 
 
 POST /api/contacts/login - checks if there is a contact with provided credentials, if not then returns unauthorized 
+
 {
   "email": "string",
   "password": "string"
 }
 
-To start the frontend download modules "npm i" and start using "npm run". Run backend with http Launch
+Starting application: 
+
+Frontend: 
+1) Download packages using "npm i"
+2) Run using "npm start"
+
+Backend:
+
+Run using http launch
