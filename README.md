@@ -46,3 +46,14 @@ Frontend:
 Backend:
 
 Run using http launch
+
+Build description:
+Backend - divided into Model, Repository, and Controller.
+1) Model - contains data about the DB record
+2) Repository - layer responsible for interaction with models and performing DB operations
+3) Controller - contains application logic and exhibits repository methods as HTTP ones
+
+Frontend - divided into 4 components:
+1) Contacts.js - Common container for all used components 
+2) LoginPanel.js - Login handling
+3) ContactList.js - Displays contacts, contains logic used to set contact data into the edit panel, and allows delete operation
